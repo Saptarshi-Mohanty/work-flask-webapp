@@ -1,12 +1,11 @@
 <html>
 <head>
-    <link rel="stylesheet" href="static/style.css">
     <title>{{title}}</title>
 </head>
 <body>
     {%block content%}
         <div>
-            <form action=" " method="POST">
+            <form action="" method="POST">
                 {{form.hidden_tag()}}
                 <fieldset>
                     <div>
@@ -23,7 +22,16 @@
                 </div>
         </form>
         </div>
-        {%endblock%}
+        {% with messages = get_flashed_messages()%}
+            {% if messages %}
+                {%for message in messages%}
+                    <div>
+                        {{message}}
+                    </div>
+                {%endfor%}
+            {%endif%}
+        {%endwith%}
         <a href="{{url_for('register')}}">Do not have an account?</a>
+    {%endblock%}
 </body>
 </html>
