@@ -1,26 +1,29 @@
 <html>
 <head>
     <link rel="stylesheet" href="static/style.css">
+    <title>{{title}}</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to My Website</h1>
-        <form class="login-form" action="login.php" method="post">
-            <div class="input-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="input-group">
-                <button type="submit" class="login-button">Log In</button>
-            </div>
-            <div class="input-group">
-                <a href="forgot.php" class="forgot-button">Forgot Password?</a>
-            </div>
+    {%block content%}
+        <div>
+            <form action="" method="post">
+                {{form.hidden_tag()}}
+                <fieldset>
+                    <div>
+                        {{form.email.label}}
+                        {{form.email}}
+                    </div>
+                    <div>
+                        {{form.password.label}}
+                        {{form.password}}
+                    </div>
+                </fieldset>
+                <div>
+                    {{form.loginbutton}}
+                </div>
         </form>
-    </div>
+        </div>
+        {%endblock%}
+        <a href="{{url_for('register')}}">Do not have an account?</a>
 </body>
 </html>
