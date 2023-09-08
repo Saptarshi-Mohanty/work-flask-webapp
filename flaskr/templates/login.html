@@ -1,8 +1,5 @@
-<html>
-<head>
-    <title>{{title}}</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
     {%block content%}
         <div>
             <form action="" method="POST">
@@ -33,5 +30,3 @@
         {%endwith%}
         <a href="{{url_for('register')}}">Do not have an account?</a>
     {%endblock%}
-</body>
-</html>

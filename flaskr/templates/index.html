@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-</head>
-<body>
-    <p>Hello Employee</p>
-    <a href="{{url_for('login')}}">login Page</a>
-</body>
-</html>
+{% extends "layout.html" %}
+    {%block content%}
+        <h1 class="is-size-2 has-text-grey-darker my-3 mx-2">Please login to use our services.</h1>
+    {%endblock%}

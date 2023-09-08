@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, redirect, url_for
 from formmodels import RegistrationForm, LoginForm
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='C:\\Users\SaptarshiMohanty\webapp\src')
 
 app.config['SECRET_KEY'] = '3b301329dd4aec7ff92ca50e8e328f52'
 
