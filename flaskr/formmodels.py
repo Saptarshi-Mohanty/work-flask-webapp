@@ -15,3 +15,7 @@ class LoginForm(FlaskForm):
     email = EmailField(name='Email', validators=[DataRequired(), Email()])
     password = PasswordField(name='Password', validators=[DataRequired(), Length(min=6)])
     loginbutton = SubmitField(name='Login')
+
+class SearchPage(FlaskForm):
+    first_name = StringField(validators=[DataRequired(), Length(min=2, max=15)])
+    submitbutton = SubmitField(name='Search')
