@@ -3,7 +3,7 @@ from formmodels import RegistrationForm, LoginForm, SearchPage
 from connector import pipeline
 import pprint as pp
 
-app = Flask(__name__, static_folder='C:\\Users\SaptarshiMohanty\webapp\src')
+app = Flask(__name__, static_folder='C:\\Users\SaptarshiMohanty\webapp\source')
 
 app.config['SECRET_KEY'] = '3b301329dd4aec7ff92ca50e8e328f52'
 
