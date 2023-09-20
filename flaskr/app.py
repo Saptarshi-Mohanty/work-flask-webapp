@@ -38,28 +38,27 @@ def search():
     elif request.method == 'POST':
         return redirect(url_for("result", name=name))
     else:
-        pp.pprint(result)
         return render_template('search.html', form = form)
 
 @app.route("/result/<name>", methods = ['POST', 'GET'])
 @app.route("/result/<name>/<value>", methods = ['POST', 'GET'])
-def result(name, value=None):
+def result(name, value):
     if name != "all" and value == 'sbn':
         r = pipeline.sort_name(name=name)
         return render_template('result.html', r = r)
-    elif name!="all" and value == 'sbr':
+    elif name != "all" and value == 'sbr':
         r = pipeline.sort_rating(name=name)
         return render_template('result.html', r = r)
-    elif name!="all" and value == None:
+    elif name != "all" and value == 'None':
         r = pipeline.get_first_name(name=name)
         return render_template('result.html', r = r)
-    elif name=="all" and value=="sbn":
+    elif name == "all" and value =="sbn":
         r = pipeline.sort_name_all()
         return render_template('result.html', r = r)
-    elif name=="all" and value=="sbr":
+    elif name == "all" and value =="sbr":
         r = pipeline.sort_rating_all()
         return render_template('result.html', r = r)
-    else:
+    elif name == 'all' and value == 'None':
         r = pipeline.get_all()
         return render_template('result.html', r = r)
     
