@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
+from flask_bcrypt import Bcrypt
 from formmodels import RegistrationForm, LoginForm, SearchPage
 from connector import pipeline
 import pprint as pp
@@ -6,6 +7,11 @@ import pprint as pp
 app = Flask(__name__, static_folder='C:\\Users\SaptarshiMohanty\webapp\source')
 
 app.config['SECRET_KEY'] = '3b301329dd4aec7ff92ca50e8e328f52'
+
+def password_hashing(password):
+    bcrypt = Bcrypt(app)
+    pas = bcrypt.generate_password_hash(password).decode('UTF-8')
+    return pas
 
 @app.route('/')
 def home():
@@ -22,6 +28,8 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_password = password_hashing(form.password.data)
+        pipeline.insert_user(fname=form.first_name.data, lname=form.last_name.data, email=form.email.data, empid=form.empid.data, title=form.title.data, password=hashed_password)
         flash(f'Account created for {form.empid.data}')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
@@ -40,7 +48,6 @@ def search():
     else:
         return render_template('search.html', form = form)
 
-@app.route("/result/<name>", methods = ['POST', 'GET'])
 @app.route("/result/<name>/<value>", methods = ['POST', 'GET'])
 def result(name, value):
     if name != "all" and value == 'sbn':
