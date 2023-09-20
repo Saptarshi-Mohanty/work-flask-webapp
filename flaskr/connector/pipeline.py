@@ -30,3 +30,8 @@ def sort_rating(name):
 
 def insert_user(fname, lname, email, password, empid, title):
     stat.insert_one({"FirstName": fname, "LastName": lname, "Title": title, "ADEmail": email, "EmpID": empid, "password": password})
+
+def check_user(email):
+    check_pipeline = [{"$match": {"ADEmail": email}}]
+    r = stat.aggregate(check_pipeline)
+    return r

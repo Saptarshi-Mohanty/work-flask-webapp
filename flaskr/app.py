@@ -8,10 +8,14 @@ app = Flask(__name__, static_folder='C:\\Users\SaptarshiMohanty\webapp\source')
 
 app.config['SECRET_KEY'] = '3b301329dd4aec7ff92ca50e8e328f52'
 
+bcrypt = Bcrypt(app)
+
 def password_hashing(password):
-    bcrypt = Bcrypt(app)
     pas = bcrypt.generate_password_hash(password).decode('UTF-8')
     return pas
+
+def hash_checking(hash, password):
+    return bcrypt.check_password_hash(pw_hash=hash, password=password)
 
 @app.route('/')
 def home():
@@ -21,7 +25,12 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('search'))
+        result = pipeline.check_user(form.email.data)
+        for doc in result:
+            if hash_checking(password=form.password.data, hash=doc["password"]):
+                return redirect(url_for('search'))
+            else:
+                flash(f'Email or Password does not match')
     return render_template('login.html', form=form)
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -30,7 +39,7 @@ def register():
     if form.validate_on_submit():
         hashed_password = password_hashing(form.password.data)
         pipeline.insert_user(fname=form.first_name.data, lname=form.last_name.data, email=form.email.data, empid=form.empid.data, title=form.title.data, password=hashed_password)
-        flash(f'Account created for {form.empid.data}')
+        flash(f'Account created for {form.first_name.data}')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
