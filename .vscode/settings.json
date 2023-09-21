@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
         "./lib"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "off"
 }
